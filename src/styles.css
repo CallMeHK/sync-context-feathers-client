@@ -1,0 +1,41 @@
+:root {
+    --main-bg-color: rgb(85, 99, 221);
+  }
+  /*   */
+  .App {
+    font-family: sans-serif;
+    text-align: center;
+  }
+  
+  .show-modal {
+    z-index: 1003;
+    display: block;
+    opacity: 1;
+    top: 10%;
+    transform: scaleX(1) scaleY(1);
+  }
+  
+  .show-overlay {
+    z-index: 1002;
+    display: block;
+    opacity: 0.5;
+  }
+  
+  .navbar-theme {
+    background: var(--main-bg-color);
+  }
+  
+  p {
+    text-align: left;
+  }
+
+  .sidenav-trigger {
+      cursor: pointer;
+  }
+  
+  @media only screen and (min-width: 981px) {
+    .container-margin {
+      margin-left: 300px;
+    }
+  }
+  
