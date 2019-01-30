@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import {useAsync} from 'react-use';
+
 import io from "socket.io-client";
 import feathers from "@feathersjs/feathers";
 import socketio from "@feathersjs/socketio-client";
@@ -21,14 +23,39 @@ function useFeathersService(app, service) {
       });
   };
 
+  return findAll()
+};
+
+function useCreated(app, service, data){
+    app.service(service).create(data).then(res => {console.log("created: ", res)});
+}
+
+function useListener(app, service, event, callback){
+    app.service(service).on(event, res => {console.log(`heard about ${event}: `,res); callback(res)})
+}
+
+export { useFeathersService, useFeathersSocket, useCreated, useListener }
+
+
+  
+
+
+
+
+
+
+
 //   const _setUpListener = () => {
 //     app.service('public-message').on('created', res => console.log(res))
 // }
-  const [ msgs, setMsgs ] = useState([]);
-  findAll().then(res => {setMsgs(e => res)})
+  //const [ msgs, setMsgs ] = useState([]);
   
-  return 
 
-};
+//   function useStateToDb() {
+//       return findAll().then(res => setMsgs(res))
+      
+//   }
+  
+  //console.log([ msgs, setMsgs ])
 
-export { useFeathersService, useFeathersSocket }
+  //useStateToDb().then(() => [ msgs, setMsgs ]);
