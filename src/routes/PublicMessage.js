@@ -3,7 +3,8 @@ import {
   useFeathersSocket,
   useFeathersService,
   useCreated,
-  useListener
+  useListener,
+  useService
 } from "../client-hook/useFeathers";
 
 export default function PublicMessage() {
@@ -26,17 +27,13 @@ export default function PublicMessage() {
   }, []);
 
   const _testMessage = () => {
-    app
-      .service("public-message")
-      .create({ text: "this is a test" })
-      .then(msg => console.log("message created: ", msg));
+      useService(app, "public-message", 'create', { text: "this is a test" }, msg => console.log("message created: ", msg))
+
   };
 
   const _removeMessage = id => {
-    app
-      .service("public-message")
-      .remove(id)
-      .then(msg => console.log("message removed: ", msg));
+      useService(app, "public-message", 'remove', id, msg => console.log("message removed: ", msg))
+
   };
 
   return (
