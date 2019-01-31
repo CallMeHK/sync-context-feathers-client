@@ -25,11 +25,30 @@ export default function PublicMessage() {
       {!loading && (
         <div>
           {msgs.map(elt => (
-            <div className="card" style={{maxWidth:"530px"}}><div className="card-content"key={elt._id}>
-              <p>{elt.text}</p>
-              <div className="card-action" style={{display:"flex",justifyContent:"space-evenly"}}><button className="waves-effect waves-light btn" onClick={() => setter.remove(elt._id)}>Remove</button>
-              <button className="waves-effect waves-light btn" onClick={() => setter.patch(elt._id,{text: `${elt.text} was patched`})}>Patch</button>
-            </div></div></div>
+            <div className="card" style={{ maxWidth: "530px" }} key={elt._id}>
+              <div className="card-content">
+                <p>{elt.text}</p>
+                <div
+                  className="card-action"
+                  style={{ display: "flex", justifyContent: "space-evenly" }}
+                >
+                  <button
+                    className="waves-effect waves-light btn"
+                    onClick={() => setter.remove(elt._id)}
+                  >
+                    Remove
+                  </button>
+                  <button
+                    className="waves-effect waves-light btn"
+                    onClick={() =>
+                      setter.patch(elt._id, { text: `${elt.text} was patched` })
+                    }
+                  >
+                    Patch
+                  </button>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       )}

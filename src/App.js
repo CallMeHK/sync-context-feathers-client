@@ -5,6 +5,7 @@ import useWindowSize from './client-hook/useWindowSize'
 import { ContextOneProvider } from "./ContextOne";
 
 import ContextDemo from "./routes/ContextDemo";
+import ContextMsg from "./routes/ContextMsg";
 import PublicMessage from "./routes/PublicMessage"
 
 
@@ -39,6 +40,10 @@ function App() {
       path: "/contextdemo"
     },
     {
+      name: "ContextMsg",
+      path: "/contextmsg"
+    },
+    {
       name: "PublicMessage",
       path: "/pubmsg"
     }
@@ -52,6 +57,7 @@ function App() {
         <div className="container">
           <Route path="/" exact component={Index} />
           <Route path="/contextdemo/" component={ContextDemo} />
+          <Route path="/contextmsg/" component={ContextMsg} />
           <Route path="/pubmsg/" component={PublicMessage} />
         </div>
       </div>

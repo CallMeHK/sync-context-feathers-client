@@ -1,22 +1,22 @@
 import React from "react";
 import { ContextOne } from "../ContextOne";
 
-export default function ContextDemo() {
+export default function ContextMsg() {
   let { state, dispatch } = React.useContext(ContextOne);
 
-  document.title = `ContextDemo: ${state.count}`;
+  document.title = `ContextMsg`;
 
   const onCount = num => {
     dispatch({ type: "set-count-to", payload: state.count + num });
+    console.log(state);
   };
   
   return (
     <div className="App">
-      <h4>Count with useContext</h4>
+      <h4>SocketIo with useContext</h4>
       <p>
-        This is the ContextDemo, values should sorta persist in the same way
-        values persist in redux. There is a reducer and stuff to change values,
-        but its a little less wacky and easier to use.
+        This is the Context Socket.io Demo, values should sorta persist in the same way
+        values persist in redux. The context will sync with the stupid socket over in feathers.
       </p>
       <h3>You clicked {state.count} times!</h3>
 
