@@ -1,56 +1,23 @@
-import React, { useState, useEffect } from "react";
-import {
-  useFeathersSocket,
-  useFeathersService,
-  useCreated,
-  useListener,
-  useService
-} from "../client-hook/useFeathers";
+import React from "react";
+import { useFeathersState } from "../client-hook/useFeathers";
 
 export default function PublicMessage() {
-  let app = useFeathersSocket("http://localhost:3030");
-  const [msgs, setMsgs] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    useFeathersService(app, "public-message").then(res => {
-      setMsgs(res);
-      setLoading(false);
-    });
-
-    useListener(app, "public-message", "created", res =>
-      setMsgs(msgs => [...msgs, res])
-    );
-    useListener(app, "public-message", "removed", res =>
-      setMsgs(msgs => msgs.filter(elt => elt._id != res._id))
-    );
-  }, []);
-
-  const _testMessage = () => {
-      useService(app, "public-message", 'create', { text: "this is a test" }, msg => console.log("message created: ", msg))
-
-  };
-
-  const _removeMessage = id => {
-      useService(app, "public-message", 'remove', id, msg => console.log("message removed: ", msg))
-
-  };
-
+  const params = { url: "http://localhost:3030", service: "public-message" };
+  const [loading, msgs, setter] = useFeathersState(params);
   return (
     <div className="App">
       <h4>Public Messages</h4>
       <p>This component uses socket.io and feathers to get real time data.</p>
       <div />
-      <button className="waves-effect waves-light btn" onClick={_testMessage}>
+      <button
+        className="waves-effect waves-light btn"
+        onClick={() => setter.create({ text: "this is a message" })}
+      >
         add a message
       </button>
       <button
         className="waves-effect waves-light btn"
-        onClick={() => {
-          useCreated(app, "public-message", {
-            text: "hi there from useFeathers"
-          });
-        }}
+        onClick={() => setter.create({ text: "this is a different message" })}
       >
         add a different message
       </button>
@@ -58,10 +25,11 @@ export default function PublicMessage() {
       {!loading && (
         <div>
           {msgs.map(elt => (
-            <div key={elt._id}>
-              {elt.text}
-              <button onClick={() => _removeMessage(elt._id)}>Remove</button>
-            </div>
+            <div className="card" style={{maxWidth:"530px"}}><div className="card-content"key={elt._id}>
+              <p>{elt.text}</p>
+              <div className="card-action" style={{display:"flex",justifyContent:"space-evenly"}}><button className="waves-effect waves-light btn" onClick={() => setter.remove(elt._id)}>Remove</button>
+              <button className="waves-effect waves-light btn" onClick={() => setter.patch(elt._id,{text: `${elt.text} was patched`})}>Patch</button>
+            </div></div></div>
           ))}
         </div>
       )}
