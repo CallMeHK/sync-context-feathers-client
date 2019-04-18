@@ -1,6 +1,8 @@
 ## What is this?
 Sync-context-with-feathers is a pair of React hooks and useContext that syncs data stored in feathers via mongoDB with context.  This is a simple crud app I used to demonstrate the interaction between context and the hook.  
 
+See server here: https://github.com/CallMeHK/sync-context-feathers
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
